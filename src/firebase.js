@@ -4,12 +4,12 @@ import 'firebase/auth';
 import 'firebase/firestore';*/
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyDZoJgZXI4uomj_D5iZ8BX7Mjpk62yfxEU",
-  authDomain: "ivymedia-app.firebaseapp.com",
-  projectId: "ivymedia-app",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: "ivymedia-app.appspot.com",
-  messagingSenderId: "555906356569",
-  appId: "1:555906356569:web:c408ad5302c41f4b85e848"
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 });
 
 const db = firebaseApp.firestore();

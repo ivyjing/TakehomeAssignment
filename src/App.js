@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 function App() {
 const classes = useStyles();
 const [modalStyle] = useState(getModalStyle);
-
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
@@ -70,7 +69,6 @@ const [modalStyle] = useState(getModalStyle);
       
       })));
     })
-
   }, []);
 
   const signUp = (event) => {
@@ -100,15 +98,6 @@ const [modalStyle] = useState(getModalStyle);
 
   return (
     <div className="app">
-
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName}/>
-
-      ):(
-        <h3>Sorry you need to login to upload</h3>
-      )}
-      
-
       <Modal
        open={openSignIn}
        onClose={()=> setOpenSignIn(false)}>
@@ -126,7 +115,7 @@ const [modalStyle] = useState(getModalStyle);
               placeholder="email"
               type="text"
               value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               />
               <Input
               placeholder="password"
@@ -157,13 +146,13 @@ const [modalStyle] = useState(getModalStyle);
               placeholder="username"
               type="text"
               value={username}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               />
               <Input
               placeholder="email"
               type="text"
               value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               />
               <Input
               placeholder="password"
@@ -183,24 +172,31 @@ const [modalStyle] = useState(getModalStyle);
         src={require('./logo1.png')}
         alt=''
         />
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+        ): (
+          <div className='app-loginContainer'>
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+      )} 
       </div>
 
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>
-      ): (
-        <div className='app-loginContainer'>
-          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={() => setOpen(true)}>Sign Up</Button>
-        </div>
-      )} 
 
-      <h1>Hello world!</h1>
-
+      <div className='app-posts'>
       {
         posts.map(({id,post}) => (
           <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
         ))
       }
+      </div>
+      
+      
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName}/>
+      ):(
+        <h3>Sorry you need to login to upload</h3>
+      )}
 
 
     </div>
